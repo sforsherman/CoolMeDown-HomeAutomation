@@ -9,30 +9,25 @@
 #include "MCUFRIEND_kbv.h"
 #include "UTFTGLUE.h"
 #include "dht.h"
+#include "HSConstants.h"
 #include "Fonts/FreeSans9pt7b.h"
 #include "Fonts/FreeMono9pt7b.h"
-#define DHT_PIN		A6
 
 UTFTGLUE myGLCD(0x9488,A2,A1,A3,A4,A0);
 MCUFRIEND_kbv kbv;
 RTC_DS1307 rtc;
 DateTime now;
 
-const int8_t DATE_REFRESH_INTERVAL = 60;	// Refresh the date every minute.
+
 int8_t date_interval_counter = 1;
 int8_t last_minute = 0;
 int8_t curr_minute = 0;
 
-const int8_t TEMP_REFRESH_RATE = 5;	// Set the temperature refreshing rate (by seconds)
 int8_t temp_interval_counter = 1;
 
 float last_temp_reading = 0.00;
 
 char daysOfTheWeek[7][12] = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
-
-#define TEMP_OK_LED_PIN		22
-#define TEMP_WARN_LED_PIN	23
-#define TEMP_HOT_LED_PIN	24
 
 // Declare which fonts we will be using
 #if !defined(BigFont)
@@ -45,13 +40,9 @@ void printFileContents(void);
 void initializeCard(void);
 
 File fd;
-const uint8_t BUFFER_SIZE = 20;
 char fileName[] = "readings.txt"; // SD library only supports up to 8.3 names
 char buff[BUFFER_SIZE+2] = "";  // Added two to allow a 2 char peek for EOF state
 uint8_t index = 0;
-
-const uint8_t chipSelect = 48;
-const uint8_t cardDetect = 49;
 
 enum states: uint8_t { NORMAL, E, EO };
 uint8_t state = NORMAL;
@@ -501,16 +492,16 @@ void initializeCard(void)
  	Serial.print(F("Initializing SD card..."));
 
   	// Is there even a card?
-  	if (!digitalRead(cardDetect))
+  	if (!digitalRead(CARD_DETECT_PIN))
   	{
     	Serial.println(F("No card detected. Waiting for card."));
-    	while (!digitalRead(cardDetect));
+    	while (!digitalRead(CARD_DETECT_PIN));
     		delay(250); // 'Debounce insertion'
   	}
 
   	// Card seems to exist.  begin() returns failure
   	// even if it worked if it's not the first call.
-  	if (!SD.begin(chipSelect) && !alreadyBegan)  // begin uses half-speed...
+  	if (!SD.begin(CHIP_SELECT_PIN) && !alreadyBegan)  // begin uses half-speed...
   	{
     	Serial.println(F("Initialization failed!"));
     	//initializeCard(); // Possible infinite retry loop is as valid as anything
@@ -552,7 +543,7 @@ void setup() {
 
 	// Note: To satisfy the AVR SPI gods the SD library takes care of setting
   	// SS_PIN as an output. We don't need to.
-  	pinMode(cardDetect, INPUT);
+  	pinMode(CARD_DETECT_PIN, INPUT);
 	initializeCard();
 	writeFileHeader();
 
@@ -576,7 +567,7 @@ void loop() {
 	DHT.read11(DHT_PIN);
 
 	// Make sure the card is still present
-  	/*if (!digitalRead(cardDetect))
+  	/*if (!digitalRead(CARD_DETECT_PIN))
   	{
     	initializeCard();
   	}*/
