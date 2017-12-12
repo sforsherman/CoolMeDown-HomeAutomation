@@ -1,0 +1,53 @@
+{
+    "description": "Enables reading and writing on SD cards.", 
+    "repository": {
+        "url": "https://github.com/arduino-libraries/SD", 
+        "type": "git"
+    }, 
+    "platforms": [
+        "atmelavr", 
+        "atmelsam", 
+        "espressif8266", 
+        "intel_arc32", 
+        "microchippic32", 
+        "nordicnrf51", 
+        "teensy", 
+        "timsp430"
+    ], 
+    "export": {
+        "exclude": [
+            "extras", 
+            "docs", 
+            "tests", 
+            "test", 
+            "*.doxyfile", 
+            "*.pdf"
+        ], 
+        "include": null
+    }, 
+    "authors": [
+        {
+            "maintainer": true, 
+            "name": "Arduino", 
+            "url": null, 
+            "email": "info@arduino.cc"
+        }, 
+        {
+            "maintainer": false, 
+            "name": "SparkFun", 
+            "url": null, 
+            "email": null
+        }
+    ], 
+    "keywords": [
+        "storage", 
+        "data"
+    ], 
+    "id": 868, 
+    "name": "SD", 
+    "frameworks": [
+        "arduino"
+    ], 
+    "version": "1.1.1", 
+    "homepage": "http://www.arduino.cc/en/Reference/SD"
+}

@@ -1,0 +1,38 @@
+{
+    "name": "Adafruit-TFT-LCD", 
+    "repository": {
+        "url": "https://github.com/adafruit/TFTLCD-Library.git", 
+        "type": "git"
+    }, 
+    "platforms": [
+        "atmelavr"
+    ], 
+    "frameworks": [
+        "arduino"
+    ], 
+    "dependencies": {
+        "frameworks": "arduino", 
+        "name": "Adafruit GFX Library"
+    }, 
+    "export": {
+        "exclude": "bitmaps"
+    }, 
+    "version": "d73bbf1866", 
+    "authors": [
+        {
+            "maintainer": false, 
+            "name": "Adafruit Industries", 
+            "url": "https://github.com/adafruit", 
+            "email": null
+        }
+    ], 
+    "keywords": [
+        "spi", 
+        "tft", 
+        "lcd", 
+        "display", 
+        "graphics"
+    ], 
+    "id": 32, 
+    "description": "Arduino library for 8-bit TFT LCDs such as ILI9325, ILI9328, etc"
+}
