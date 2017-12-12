@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<flowgorithm fileversion="2.9">
+    <attributes>
+        <attribute name="name" value=""/>
+        <attribute name="authors" value="Sherman"/>
+        <attribute name="about" value=""/>
+        <attribute name="saved" value="2017-12-12 06:52:37 PM"/>
+        <attribute name="created" value="U2hlcm1hbjsgREVTS1RPUC1PNE9CSjlSOyAyMDE3LTEyLTEyOyAwNjoyNTo0MCBQTTsgMzE2Mw=="/>
+        <attribute name="edited" value="U2hlcm1hbjsgREVTS1RPUC1PNE9CSjlSOyAyMDE3LTEyLTEyOyAwNjo1MjozNyBQTTsgMzE2OQ=="/>
+    </attributes>
+    <function name="Main" type="None" variable="">
+        <parameters/>
+        <body>
+            <call expression="InitializeDisplay()"/>
+            <call expression="InitializeClock()"/>
+            <call expression="InitializeSD()"/>
+        </body>
+    </function>
+    <function name="InitializeSD" type="None" variable="">
+        <parameters/>
+        <body>
+            <if expression="SDexists == true">
+                <then/>
+                <else>
+                    <while expression="while(detectSDCard())"/>
+                </else>
+            </if>
+            <output expression="&quot;SD Card Detected&quot;" newline="True"/>
+            <if expression="tempLogFileExists == true">
+                <then/>
+                <else>
+                    <call expression="CreateTempLogFile()"/>
+                    <output expression="&quot;Temperature Log File Created&quot;" newline="True"/>
+                </else>
+            </if>
+            <output expression="&quot;Temperature Log File Initialized. Ready for Logging&quot;" newline="True"/>
+            <if expression="ACControlLogFileExists == true">
+                <then/>
+                <else>
+                    <call expression="CreateACControlLogFile()"/>
+                    <output expression="&quot;ACControl Log File Created.&quot;" newline="True"/>
+                </else>
+            </if>
+            <output expression="&quot;ACControl Log File Initialized. Ready for Logging.&quot;" newline="True"/>
+        </body>
+    </function>
+</flowgorithm>
